@@ -38,18 +38,20 @@ void add_product() {
 void view_products() {
     printf("\n--- Product List ---\n");
     if (product_count == 0) {
-        printf("No products available in inventory\n");
+        printf("No products available in inventory.\n");
         return;
     }
     
-    printf("ID\tName\t\tCategory\tPrice\tStock\n");
-    printf("----------------------------------------------------------\n");
+    printf("ID\tName\t\tCategory\tCost\tPrice\tStock\tMin Stock\n");
+    printf("-------------------------------------------------------------------------\n");
     for (int i = 0; i < product_count; i++) {
-        printf("%d\t%s\t\t%s\t\t%.2f\t%d\n", 
+        printf("%d\t%s\t\t%s\t\t%.2f\t%.2f\t%d\t%d\n", 
                inventory[i].id, 
                inventory[i].name, 
                inventory[i].category, 
+               inventory[i].purchase_cost,
                inventory[i].price, 
-               inventory[i].stock);
+               inventory[i].stock,
+               inventory[i].min_stock);
     }
 }
