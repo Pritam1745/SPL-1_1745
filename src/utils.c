@@ -36,3 +36,23 @@ void read_string(char *buffer, int max_length) {
         buffer[len - 1] = '\0';
     }
 }
+
+double string_to_double(const char *str) {
+    double result = 0.0;
+    double fraction = 1.0;
+    int is_fraction = 0;
+
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (str[i] == '.') {
+            is_fraction = 1;
+            continue;
+        }
+        if (!is_fraction) {
+            result = result * 10.0 + (str[i] - '0');
+        } else {
+            fraction /= 10.0;
+            result += (str[i] - '0') * fraction;
+        }
+    }
+    return result;
+}

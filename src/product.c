@@ -9,7 +9,7 @@ void add_product() {
     printf("\n--- Add New Product ---\n");
     
     struct Product new_product;
-    char temp_buffer[20];
+    char temp_buffer[30];
     
     printf("Enter Product ID: ");
     read_string(temp_buffer, sizeof(temp_buffer));
@@ -26,8 +26,29 @@ void add_product() {
     printf("Enter Category: ");
     read_string(new_product.category, sizeof(new_product.category));
 
-    new_product.price = 500.00; 
-    new_product.stock = 50;
+    printf("Enter Purchase Cost: ");
+    read_string(temp_buffer, sizeof(temp_buffer));
+    new_product.purchase_cost = string_to_double(temp_buffer);
+
+    printf("Enter Selling Price: ");
+    read_string(temp_buffer, sizeof(temp_buffer));
+    new_product.price = string_to_double(temp_buffer);
+
+    printf("Enter Initial Stock Quantity: ");
+    read_string(temp_buffer, sizeof(temp_buffer));
+    int stock = 0;
+    for(int i = 0; temp_buffer[i] != '\0'; i++) {
+        stock = stock * 10 + (temp_buffer[i] - '0');
+    }
+    new_product.stock = stock;
+
+    printf("Enter Minimum Stock Threshold: ");
+    read_string(temp_buffer, sizeof(temp_buffer));
+    int min_s = 0;
+    for(int i = 0; temp_buffer[i] != '\0'; i++) {
+        min_s = min_s * 10 + (temp_buffer[i] - '0');
+    }
+    new_product.min_stock = min_s;
 
     inventory[product_count] = new_product;
     product_count++;

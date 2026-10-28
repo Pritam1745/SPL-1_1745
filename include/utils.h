@@ -6,5 +6,5 @@ void my_strcpy(char *dest, const char *src);
 int my_strcmp(const char *str1, const char *str2);
 
 void read_string(char *buffer, int max_length);
-
+double string_to_double(const char *str);
 #endif
