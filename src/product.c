@@ -5,6 +5,15 @@
 struct Product inventory[100];
 int product_count = 0;
 
+int is_duplicate_id(int id) {
+    for (int i = 0; i < product_count; i++) {
+        if (inventory[i].id == id) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
 void add_product() {
     printf("\n--- Add New Product ---\n");
     
@@ -17,6 +26,11 @@ void add_product() {
     int id = 0;
     for(int i = 0; temp_buffer[i] != '\0'; i++) {
         id = id * 10 + (temp_buffer[i] - '0');
+    }
+
+    if (is_duplicate_id(id)) {
+        printf("Error: Product ID %d already exists! Please use a unique ID.\n", id);
+        return;
     }
     new_product.id = id;
 
@@ -37,23 +51,19 @@ void add_product() {
     printf("Enter Initial Stock Quantity: ");
     read_string(temp_buffer, sizeof(temp_buffer));
     int stock = 0;
-    for(int i = 0; temp_buffer[i] != '\0'; i++) {
-        stock = stock * 10 + (temp_buffer[i] - '0');
-    }
+    for(int i = 0; temp_buffer[i] != '\0'; i++) stock = stock * 10 + (temp_buffer[i] - '0');
     new_product.stock = stock;
 
     printf("Enter Minimum Stock Threshold: ");
     read_string(temp_buffer, sizeof(temp_buffer));
     int min_s = 0;
-    for(int i = 0; temp_buffer[i] != '\0'; i++) {
-        min_s = min_s * 10 + (temp_buffer[i] - '0');
-    }
+    for(int i = 0; temp_buffer[i] != '\0'; i++) min_s = min_s * 10 + (temp_buffer[i] - '0');
     new_product.min_stock = min_s;
 
     inventory[product_count] = new_product;
     product_count++;
 
-    printf("Product added successfully\n");
+    printf("Product added successfully!\n");
 }
 
 void view_products() {

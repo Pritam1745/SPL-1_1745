@@ -30,10 +30,11 @@ int my_strcmp(const char *str1, const char *str2) {
 }
 
 void read_string(char *buffer, int max_length) {
-    fgets(buffer, max_length, stdin);
-    int len = my_strlen(buffer);
-    if (len > 0 && buffer[len - 1] == '\n') {
-        buffer[len - 1] = '\0';
+    if (fgets(buffer, max_length, stdin) != NULL) {
+        int len = my_strlen(buffer);
+        if (len > 0 && buffer[len - 1] == '\n') {
+            buffer[len - 1] = '\0';
+        }
     }
 }
 
