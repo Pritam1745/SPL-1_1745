@@ -115,6 +115,12 @@ void add_product() {
     for(int i = 0; temp_buffer[i] != '\0'; i++){
         min_s = min_s * 10 + (temp_buffer[i] - '0');
     }
+    if (min_s < 0) {
+        printf("Error: Minimum stock threshold cannot be negative!\n");
+        return;
+    }
+    new_product.min_stock = min_s;
+    
     inventory[product_count] = new_product;
     product_count++;
 
