@@ -100,15 +100,21 @@ void add_product() {
     printf("Enter Initial Stock Quantity: ");
     read_string(temp_buffer, sizeof(temp_buffer));
     int stock = 0;
-    for(int i = 0; temp_buffer[i] != '\0'; i++) stock = stock * 10 + (temp_buffer[i] - '0');
+    for(int i = 0; temp_buffer[i] != '\0'; i++){
+         stock = stock * 10 + (temp_buffer[i] - '0');
+    }
+    if (stock < 0) {
+        printf("Error: Stock quantity cannot be negative!\n");
+        return;
+    }
     new_product.stock = stock;
 
     printf("Enter Minimum Stock Threshold: ");
     read_string(temp_buffer, sizeof(temp_buffer));
     int min_s = 0;
-    for(int i = 0; temp_buffer[i] != '\0'; i++) min_s = min_s * 10 + (temp_buffer[i] - '0');
-    new_product.min_stock = min_s;
-
+    for(int i = 0; temp_buffer[i] != '\0'; i++){
+        min_s = min_s * 10 + (temp_buffer[i] - '0');
+    }
     inventory[product_count] = new_product;
     product_count++;
 
