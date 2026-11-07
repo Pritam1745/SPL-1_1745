@@ -36,12 +36,14 @@ void inventory_menu() {
         } else if(choice == 3) {
             break;
         } else {
-            printf("Invalid choice\n");
+            printf("Invalid choice!\n");
         }
     }
 }
 
 int main() {
+    load_products_from_file();
+
     int current_role = 0;
     
     while (current_role == 0) {
@@ -82,7 +84,7 @@ int main() {
                 }
                 break;
             case 5:
-                printf("\nLogging out.... Goodbye!\n");
+                printf("\nLogging out... Goodbye!\n");
                 return 0;
             default:
                 printf("\nInvalid choice! Please enter a number between 1 and 5.\n");

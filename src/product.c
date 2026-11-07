@@ -14,6 +14,47 @@ int is_duplicate_id(int id) {
     return 0;
 }
 
+void load_products_from_file() {
+    FILE *fp = fopen("data/products.txt", "r");
+    if (fp == NULL) {
+        product_count = 0;
+        return;
+    }
+
+    product_count = 0;
+    while (fscanf(fp, "%d,%49[^,],%29[^,],%lf,%lf,%d,%d\n",
+                  &inventory[product_count].id,
+                  inventory[product_count].name,
+                  inventory[product_count].category,
+                  &inventory[product_count].purchase_cost,
+                  &inventory[product_count].price,
+                  &inventory[product_count].stock,
+                  &inventory[product_count].min_stock) == 7) {
+        product_count++;
+    }
+    fclose(fp);
+}
+
+void save_products_to_file() {
+    FILE *fp = fopen("data/products.txt", "w");
+    if (fp == NULL) {
+        printf("Error: Unable to save product data to file!\n");
+        return;
+    }
+
+    for (int i = 0; i < product_count; i++) {
+        fprintf(fp, "%d,%s,%s,%.2f,%.2f,%d,%d\n",
+                inventory[i].id,
+                inventory[i].name,
+                inventory[i].category,
+                inventory[i].purchase_cost,
+                inventory[i].price,
+                inventory[i].stock,
+                inventory[i].min_stock);
+    }
+    fclose(fp);
+}
+
 void add_product() {
     printf("\n--- Add New Product ---\n");
     
@@ -63,7 +104,9 @@ void add_product() {
     inventory[product_count] = new_product;
     product_count++;
 
-    printf("Product added successfully!\n");
+    save_products_to_file();
+
+    printf("Product added and saved to file successfully!\n");
 }
 
 void view_products() {

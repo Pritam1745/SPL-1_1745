@@ -14,4 +14,7 @@ struct Product {
 void add_product();
 void view_products();
 
+void save_products_to_file();
+void load_products_from_file();
+
 #endif
