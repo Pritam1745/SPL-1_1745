@@ -139,13 +139,15 @@ void view_products() {
     printf("ID\tName\t\tCategory\tCost\tPrice\tStock\tMin Stock\n");
     printf("-------------------------------------------------------------------------\n");
     for (int i = 0; i < product_count; i++) {
-        printf("%d\t%s\t\t%s\t\t%.2f\t%.2f\t%d\t%d\n", 
+        char *status = (inventory[i].stock <= inventory[i].min_stock) ? "[LOW STOCK]" : "OK";
+        printf("%d\t%s\t\t%s\t\t%.2f\t%.2f\t%d\t%d\t\t%s\n", 
                inventory[i].id, 
                inventory[i].name, 
                inventory[i].category, 
                inventory[i].purchase_cost,
                inventory[i].price, 
                inventory[i].stock,
-               inventory[i].min_stock);
+               inventory[i].min_stock,
+               status);
     }
 }
