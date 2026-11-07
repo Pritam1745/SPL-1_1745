@@ -84,11 +84,15 @@ void add_product() {
     printf("Enter Purchase Cost: ");
     read_string(temp_buffer, sizeof(temp_buffer));
     new_product.purchase_cost = string_to_double(temp_buffer);
+    if (new_product.purchase_cost <= 0) {
+        printf("Error: Purchase cost must be greater than zero!\n");
+        return;
+    }
 
     printf("Enter Selling Price: ");
     read_string(temp_buffer, sizeof(temp_buffer));
     new_product.price = string_to_double(temp_buffer);
-
+       
     printf("Enter Initial Stock Quantity: ");
     read_string(temp_buffer, sizeof(temp_buffer));
     int stock = 0;
