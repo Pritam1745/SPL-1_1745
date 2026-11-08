@@ -130,24 +130,28 @@ void add_product() {
 }
 
 void view_products() {
-    printf("\n--- Product List ---\n");
+    printf("\n=============================================================================================\n");
+    printf("%-8s | %-15s | %-12s | %-10s | %-10s | %-8s | %-12s\n", 
+           "ID", "Name", "Category", "Cost", "Price", "Stock", "Status");
+    printf("=============================================================================================\n");
+
     if (product_count == 0) {
         printf("No products available in inventory.\n");
+        printf("=============================================================================================\n");
         return;
     }
-    
-    printf("ID\tName\t\tCategory\tCost\tPrice\tStock\tMin Stock\n");
-    printf("-------------------------------------------------------------------------\n");
+
     for (int i = 0; i < product_count; i++) {
         char *status = (inventory[i].stock <= inventory[i].min_stock) ? "[LOW STOCK]" : "OK";
-        printf("%d\t%s\t\t%s\t\t%.2f\t%.2f\t%d\t%d\t\t%s\n", 
+        
+        printf("%-8d | %-15s | %-12s | %-10.2f | %-10.2f | %-8d | %-12s\n", 
                inventory[i].id, 
                inventory[i].name, 
                inventory[i].category, 
                inventory[i].purchase_cost,
                inventory[i].price, 
                inventory[i].stock,
-               inventory[i].min_stock,
                status);
     }
+    printf("=============================================================================================\n");
 }
