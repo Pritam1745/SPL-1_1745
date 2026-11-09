@@ -155,3 +155,47 @@ void view_products() {
     }
     printf("=============================================================================================\n");
 }
+
+/*Searching for a product by its unique ID(linear search)*/
+
+void search_product_by_id() {
+    printf("\n--- Search Product by ID ---\n");
+    if (product_count == 0) {
+        printf("No products available to search.\n");
+        return;
+    }
+
+    char temp_buffer[30];
+    printf("Enter Product ID to search: ");
+    read_string(temp_buffer, sizeof(temp_buffer));
+    
+    int search_id = 0;
+    for(int i = 0; temp_buffer[i] != '\0'; i++) {
+        search_id = search_id * 10 + (temp_buffer[i] - '0');
+    }
+
+    int found = 0;
+    for (int i = 0; i < product_count; i++) {
+        if (inventory[i].id == search_id) {
+            char *status = (inventory[i].stock <= inventory[i].min_stock) ? "[LOW STOCK]" : "OK";
+            
+            printf("\nProduct Found Details:\n");
+            printf("-----------------------------------\n");
+            printf("ID           : %d\n", inventory[i].id);
+            printf("Name         : %s\n", inventory[i].name);
+            printf("Category     : %s\n", inventory[i].category);
+            printf("Purchase Cost: %.2f\n", inventory[i].purchase_cost);
+            printf("Selling Price: %.2f\n", inventory[i].price);
+            printf("Stock Level  : %d\n", inventory[i].stock);
+            printf("Min Threshold: %d\n", inventory[i].min_stock);
+            printf("Status       : %s\n", status);
+            printf("-----------------------------------\n");
+            found = 1;
+            break;
+        }
+    }
+
+    if (!found) {
+        printf("Product with ID %d not found in inventory!\n", search_id);
+    }
+}
