@@ -23,8 +23,10 @@ void inventory_menu() {
         printf("\n--- Inventory Management ---\n");
         printf("1. Add Product\n");
         printf("2. View Products\n");
-        printf("3. Back to Main Menu\n");
-        printf("Enter choice: ");
+        printf("3. Search Product by ID\n");
+        printf("4. Search Product by Name\n");
+        printf("5. Back to Main Menu\n");
+        printf("Enter choice (1-5): ");
         
         read_string(input_buffer, sizeof(input_buffer));
         choice = input_buffer[0] - '0';
@@ -34,6 +36,10 @@ void inventory_menu() {
         } else if(choice == 2) {
             view_products();
         } else if(choice == 3) {
+            search_product_by_id();
+        } else if(choice == 4) {
+            search_product_by_name();
+        } else if(choice == 5) {
             break;
         } else {
             printf("Invalid choice!\n");
@@ -80,7 +86,7 @@ int main() {
                 if (current_role == ROLE_ADMIN) {
                     printf("\n-> Opening Business Reports module...\n");
                 } else {
-                    printf("\n-> Access Denied! Only Admin can view Reports.\n");
+                    printf("\n-> Access Denied! Only Admin can view reports.\n");
                 }
                 break;
             case 5:
