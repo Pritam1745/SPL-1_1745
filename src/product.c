@@ -156,7 +156,7 @@ void view_products() {
     printf("=============================================================================================\n");
 }
 
-/*Searching for a product by its unique ID(linear search)*/
+//Searching for a product by its unique ID(linear search)
 
 void search_product_by_id() {
     printf("\n--- Search Product by ID ---\n");
@@ -200,7 +200,7 @@ void search_product_by_id() {
     }
 }
 
-/* Searches for products by name (linear search) */
+// Searches for products by name (linear search)
 
 void search_product_by_name() {
     printf("\n--- Search Product by Name ---\n");
@@ -237,4 +237,39 @@ void search_product_by_name() {
     if (!found) {
         printf("Product with name '%s' not found in inventory!\n", search_name);
     }
+}
+
+// Displays only products where current stock is at or below minimum threshold
+
+void view_low_stock_products() {
+    printf("\n--- Low Stock Alert List (Reorder Required) ---\n");
+    if (product_count == 0) {
+        printf("No products available in inventory.\n");
+        return;
+    }
+
+    int low_stock_count = 0;
+    printf("=========================================================================================\n");
+    printf("%-6s | %-15s | %-12s | %-8s | %-8s | %-6s | %-10s\n", 
+           "ID", "Name", "Category", "Cost", "Price", "Stock", "Status");
+    printf("=========================================================================================\n");
+
+    for (int i = 0; i < product_count; i++) {
+        if (inventory[i].stock <= inventory[i].min_stock) {
+            printf("%-6d | %-15s | %-12s | %-8.2f | %-8.2f | %-6d | %-10s\n", 
+                   inventory[i].id, 
+                   inventory[i].name, 
+                   inventory[i].category, 
+                   inventory[i].purchase_cost,
+                   inventory[i].price, 
+                   inventory[i].stock,
+                   "[LOW STOCK]");
+            low_stock_count++;
+        }
+    }
+
+    if (low_stock_count == 0) {
+        printf("All products have sufficient stock level. No alerts at this time.\n");
+    }
+    printf("=========================================================================================\n");
 }
