@@ -11,9 +11,10 @@ void display_main_menu() {
     printf("2. Purchase Management\n");
     printf("3. Sales & Billing\n");
     printf("4. Business Reports\n");
-    printf("5. Logout/Exit\n");
+    printf("5. Account Security (Change Password)\n");
+    printf("6. Logout/Exit\n");
     printf("========================================\n");
-    printf("Enter choice (1-5): ");
+    printf("Enter choice (1-6): ");
 }
 
 void inventory_menu() {
@@ -52,6 +53,7 @@ void inventory_menu() {
 
 int main() {
     load_products_from_file();
+    load_users_from_file();
 
     int current_role = 0;
     
@@ -89,14 +91,17 @@ int main() {
                 if (current_role == ROLE_ADMIN) {
                     printf("\n-> Opening Business Reports module...\n");
                 } else {
-                    printf("\n-> Access Denied! Only Admin can view reports.\n");
+                    printf("\n-> Access Denied! Only Admin can view Reports.\n");
                 }
                 break;
             case 5:
+                change_password(current_role);
+                break;
+            case 6:
                 printf("\nLogging out... Goodbye!\n");
                 return 0;
             default:
-                printf("\nInvalid choice! Please enter a number between 1 and 5.\n");
+                printf("\nInvalid choice! Please enter a number between 1 and 6.\n");
         }
     }
     return 0;
