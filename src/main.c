@@ -17,17 +17,17 @@ void display_main_menu() {
     printf("Enter choice (1-6): ");
 }
 
-void inventory_menu() {
+void inventory_menu(int current_role) {
     int choice = 0;
     char input_buffer[10];
     while(1) {
         printf("\n--- Inventory Management ---\n");
-        printf("1. Add Product\n");
+        printf("1. Add Product (Admin Only)\n");
         printf("2. View All Products\n");
         printf("3. Search Product by ID\n");
         printf("4. Search Product by Name\n");
-        printf("5. Edit Product\n");
-        printf("6. Delete Product\n");
+        printf("5. Edit Product (Admin Only)\n");
+        printf("6. Delete Product (Admin Only)\n");
         printf("7. View Low Stock Alerts\n");
         printf("8. Back to Main Menu\n");
         printf("Enter choice (1-8): ");
@@ -36,7 +36,12 @@ void inventory_menu() {
         choice = input_buffer[0] - '0';
 
         if(choice == 1) {
-            add_product();
+            //staff check for Add Product
+            if (current_role == ROLE_ADMIN) {
+                add_product();
+            } else {
+                printf("\n-> Access Denied! Only Admin can add new products.\n");
+            }
         } else if(choice == 2) {
             view_products();
         } else if(choice == 3) {
@@ -44,9 +49,19 @@ void inventory_menu() {
         } else if(choice == 4) {
             search_product_by_name();
         } else if(choice == 5) {
-            edit_product();
+            //staff check for Edit
+            if (current_role == ROLE_ADMIN) {
+                edit_product();
+            } else {
+                printf("\n-> Access Denied! Only Admin can edit products.\n");
+            }
         } else if(choice == 6) {
-            delete_product();
+            //staff check for Delete
+            if (current_role == ROLE_ADMIN) {
+                delete_product();
+            } else {
+                printf("\n-> Access Denied! Only Admin can delete products.\n");
+            }
         } else if(choice == 7) {
             view_low_stock_products();
         } else if(choice == 8) {
@@ -81,7 +96,7 @@ int main() {
 
         switch (choice) {
             case 1:
-                inventory_menu();
+                inventory_menu(current_role);
                 break;
             case 2:
                 if (current_role == ROLE_ADMIN) {
