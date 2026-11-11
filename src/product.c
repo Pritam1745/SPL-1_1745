@@ -273,3 +273,67 @@ void view_low_stock_products() {
     }
     printf("=========================================================================================\n");
 }
+
+//Updates product attributes by ID and syncs changes to file
+
+void edit_product() {
+    printf("\n--- Edit Product Details ---\n");
+    if (product_count == 0) {
+        printf("No products available to edit.\n");
+        return;
+    }
+
+    char temp_buffer[30];
+    printf("Enter Product ID to Edit: ");
+    read_string(temp_buffer, sizeof(temp_buffer));
+    
+    int target_id = 0;
+    for(int i = 0; temp_buffer[i] != '\0'; i++) {
+        target_id = target_id * 10 + (temp_buffer[i] - '0');
+    }
+
+    int index = -1;
+    for (int i = 0; i < product_count; i++) {
+        if (inventory[i].id == target_id) {
+            index = i;
+            break;
+        }
+    }
+
+    if (index == -1) {
+        printf("Error: Product with ID %d not found!\n", target_id);
+        return;
+    }
+
+    printf("\nEditing Product ID %d (Current Name: %s)\n", inventory[index].id, inventory[index].name);
+    
+    printf("Enter New Name: ");
+    read_string(temp_buffer, sizeof(temp_buffer));
+    if (temp_buffer[0] != '\0') {
+        my_strcpy(inventory[index].name, temp_buffer);
+    }
+
+    printf("Enter New Category: ");
+    read_string(temp_buffer, sizeof(temp_buffer));
+    if (temp_buffer[0] != '\0') {
+        my_strcpy(inventory[index].category, temp_buffer);
+    }
+
+    printf("Enter New Selling Price: ");
+    read_string(temp_buffer, sizeof(temp_buffer));
+    if (temp_buffer[0] != '\0') {
+        double val = string_to_double(temp_buffer);
+        if (val > 0) inventory[index].price = val;
+    }
+
+    printf("Enter New Stock Quantity: ");
+    read_string(temp_buffer, sizeof(temp_buffer));
+    if (temp_buffer[0] != '\0') {
+        int s = 0;
+        for(int i = 0; temp_buffer[i] != '\0'; i++) s = s * 10 + (temp_buffer[i] - '0');
+        if (s >= 0) inventory[index].stock = s;
+    }
+
+    save_products_to_file();
+    printf("Product updated and saved to file successfully!\n");
+}

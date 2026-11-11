@@ -19,5 +19,7 @@ void load_products_from_file();
 void search_product_by_id();
 void search_product_by_name();
 void view_low_stock_products();
+void edit_product();
+void delete_product();
 
 #endif
