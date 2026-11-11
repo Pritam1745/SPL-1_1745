@@ -1,0 +1,14 @@
+# Compiled Binary Executables
+stockmate
+*.exe
+*.out
+*.o
+
+# IDE & Editor Settings
+.vscode/
+.idea/
+*.swp
+
+# OS Generated Files
+.DS_Store
+Thumbs.db
