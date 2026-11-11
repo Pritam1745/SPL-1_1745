@@ -3,6 +3,7 @@
 
 int my_strlen(const char *str) {
     int length = 0;
+    // string er sesh prjnto jabo null character pawa prjnto
     while (str[length] != '\0') {
         length++;
     }
@@ -30,8 +31,10 @@ int my_strcmp(const char *str1, const char *str2) {
 }
 
 void read_string(char *buffer, int max_length) {
+    // fgets use korsi jate buffer overflow na hoy (scanf theke safe)
     if (fgets(buffer, max_length, stdin) != NULL) {
         int len = my_strlen(buffer);
+        // user enter chaple j extra newline \n pore, oita remove korar jonno
         if (len > 0 && buffer[len - 1] == '\n') {
             buffer[len - 1] = '\0';
         }
