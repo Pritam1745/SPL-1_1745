@@ -337,3 +337,44 @@ void edit_product() {
     save_products_to_file();
     printf("Product updated and saved to file successfully!\n");
 }
+
+//Removes a product from inventory array and updates storage file
+
+void delete_product() {
+    printf("\n--- Delete Product ---\n");
+    if (product_count == 0) {
+        printf("No products available to delete.\n");
+        return;
+    }
+
+    char temp_buffer[30];
+    printf("Enter Product ID to Delete: ");
+    read_string(temp_buffer, sizeof(temp_buffer));
+    
+    int target_id = 0;
+    for(int i = 0; temp_buffer[i] != '\0'; i++) {
+        target_id = target_id * 10 + (temp_buffer[i] - '0');
+    }
+
+    int index = -1;
+    for (int i = 0; i < product_count; i++) {
+        if (inventory[i].id == target_id) {
+            index = i;
+            break;
+        }
+    }
+
+    if (index == -1) {
+        printf("Error: Product with ID %d not found!\n", target_id);
+        return;
+    }
+
+    // Shift items to left to remove element
+    for (int i = index; i < product_count - 1; i++) {
+        inventory[i] = inventory[i + 1];
+    }
+    product_count--;
+
+    save_products_to_file();
+    printf("Product ID %d deleted and file updated successfully!\n", target_id);
+}

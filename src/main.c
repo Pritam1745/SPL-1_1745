@@ -26,9 +26,11 @@ void inventory_menu() {
         printf("2. View All Products\n");
         printf("3. Search Product by ID\n");
         printf("4. Search Product by Name\n");
-        printf("5. View Low Stock Alerts\n");
-        printf("6. Back to Main Menu\n");
-        printf("Enter choice (1-6): ");
+        printf("5. Edit Product\n");
+        printf("6. Delete Product\n");
+        printf("7. View Low Stock Alerts\n");
+        printf("8. Back to Main Menu\n");
+        printf("Enter choice (1-8): ");
         
         read_string(input_buffer, sizeof(input_buffer));
         choice = input_buffer[0] - '0';
@@ -42,8 +44,12 @@ void inventory_menu() {
         } else if(choice == 4) {
             search_product_by_name();
         } else if(choice == 5) {
-            view_low_stock_products();
+            edit_product();
         } else if(choice == 6) {
+            delete_product();
+        } else if(choice == 7) {
+            view_low_stock_products();
+        } else if(choice == 8) {
             break;
         } else {
             printf("Invalid choice!\n");
